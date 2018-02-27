@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- CSS Ref -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <!-- Jscript Ref -->
     <script src="javascript/train.js"></script>
+    <!-- Firebase Ref -->
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 </head>
 
 <body>
@@ -35,31 +38,17 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Trenton Express</th>
-                            <td>Trenton</td>
-                            <td>25</td>
-                            <td>05:35 PM</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Oregon Trail</th>
-                            <td>Salem, Oregon</td>
-                            <td>3600</td>
-                            <td>01:39 PM</td>
-                            <td>1154</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Mdnight Carriage</th>
-                            <td>Philadelphia</td>
-                            <td>14</td>
-                            <td>04:00 PM</td>
-                            <td>20</td>
+                            <th id="nameResult">Trenton Express</th>
+                            <td id="destResult">Trenton</td>
+                            <td id="freqResult">25</td>
+                            <td id="nextResult">05:35 PM</td>
+                            <td id="minResult">10</td>
+
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <br>
         <br>
 
         <form span class="border">
@@ -83,18 +72,56 @@
                     <label for="frequency-input">Frequency</label>
                     <input type="number" class="form-control" id="frequency-input" placeholder="minutes">
                 </div>
-                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-primary" type="submit" id="submit">Submit</button>
             </div>
         </form>
         </span>
     </div>
+    <br>
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Script -->
     <script>
 
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBVBR8svDcvV9KOloI-HHHSGVMjSXP72tw",
+            authDomain: "train-schedule-38b62.firebaseapp.com",
+            databaseURL: "https://train-schedule-38b62.firebaseio.com",
+            projectId: "train-schedule-38b62",
+            storageBucket: "train-schedule-38b62.appspot.com",
+            messagingSenderId: "1021493626385"
+        };
+        firebase.initializeApp(config);
 
+        var database = firebase.database();
+
+        var Destination = "";
+        var firstTime = "00:00";
+        var Frequency = 0;
+        var Name = "";
+        var minutesAway = 0;
+        var nextArrival = "00:00";
+
+        $("#submit").on("click", function () {
+            event.preventDefault();
+
+            Destination = $("#destination-input").val().trim();
+            firstTime = $("#time-input").val().trim();
+            Frequency = $("#frequency-input").val().trim();
+            Name = $("#name-input").val().trim();
+            // minutesAway = 0;
+            // nextArrival = "00:00";
+
+            database.ref().set({
+                Destination: Destination,
+                Frequency: Frequency,
+                Name: Name,
+                firstTime: firstTime,
+                minutesAway: 
+            })
+        })
     </script>
 </body>
 
