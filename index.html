@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <!-- <script src="main.js"></script> -->
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <div class="jumbotron">
+            <h1 class="display-4">Come and Ride the Train</h1>
+            <hr>
+        </div>
+        <div span class="border">
+            <div class="card-header">Train Schedule</div>
+            <div class="container form-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency (min)</th>
+                            <th scope="col">Next Arrival</th>
+                            <th scope="col">Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Trenton Express</th>
+                            <td>Trenton</td>
+                            <td>25</td>
+                            <td>05:35 PM</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Oregon Trail</th>
+                            <td>Salem, Oregon</td>
+                            <td>3600</td>
+                            <td>01:39 PM</td>
+                            <td>1154</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Mdnight Carriage</th>
+                            <td>Philadelphia</td>
+                            <td>14</td>
+                            <td>04:00 PM</td>
+                            <td>20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <form span class="border">
+            <div class="card-header">Add Train</div>
+            <div class="container form-body">
+
+                <div class="form-group">
+                    <label for="name-input">Train Name</label>
+                    <input type="text" class="form-control" id="name-input">
+                </div>
+                <div class="form-group">
+                    <label for="destination-input">Destination</label>
+                    <input type="text" class="form-control" id="destination-input">
+                </div>
+                <div class="form-group">
+                    <label for="time-input">First Train Time</label>
+                    <input type="time" class="form-control" id="time-input">
+                </div>
+                <div class="form-group">
+                    <label for="frequency-input">Frequency</label>
+                    <input type="number" class="form-control" id="frequency-input">
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+        </span>
+    </div>
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Script -->
+    <script>
+
+
+    </script>
+</body>
+
+</html>
