@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Train Schedule</title>
+    <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS Ref -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -16,48 +16,29 @@
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <!-- Firebase Ref -->
     <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Homenaje|News+Cycle" rel="stylesheet">
-    <!-- Font Awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
 
 <body>
     <div class="container">
         <br>
-        <div class="jumbotron jumbo">
+        <div class="jumbotron">
             <h1 class="display-4">Come and Ride the Train</h1>
-            <hr> Choo Choo
+            <hr>
         </div>
         <div span class="border">
-            <div class="card-header">
-                <h4>
-                    <i class="far fa-clock"></i> Train Schedule
-                </h4>
-
-            </div>
+            <div class="card-header">Train Schedule</div>
             <div class="container form-body">
-                <table class="table table-sm header">
+                <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th scope="col">
-                                <h5>Train Name</h5>
-                            </th>
-                            <th scope="col">
-                                <h5>Destination</h5>
-                            </th>
-                            <th scope="col">
-                                <h5>Frequency (min)</h5>
-                            </th>
-                            <th scope="col">
-                                <h5>Next Arrival</h5>
-                            </th>
-                            <th scope="col">
-                                <h5>Minutes Away</h5>
-                            </th>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency (min)</th>
+                            <th scope="col">Next Arrival</th>
+                            <th scope="col">Minutes Away</th>
                         </tr>
                     </thead>
-                    <tbody class="tbody">
+                    <tbody>
                         <tr>
                             <th id="nameResult-input"></th>
                             <td id="destResult-input"></td>
@@ -70,14 +51,9 @@
             </div>
         </div>
         <br>
-
         <form span class="border">
-            <div class="card-header">
-                <h4>
-                    <i class="far fa-plus-square"></i> Add Train</h4>
-            </div>
+            <div class="card-header">Add Train</div>
             <div class="container form-body">
-
                 <div class="form-group">
                     <label for="name-input">Train Name</label>
                     <input type="text" class="form-control" id="name-input">
@@ -95,7 +71,7 @@
                     <label for="frequency-input">Frequency</label>
                     <input type="number" class="form-control" id="frequency-input" placeholder="minutes">
                 </div>
-                <button class="btn" type="submit" id="submit">Submit</button>
+                <button class="btn btn-primary" type="submit" id="submit">Submit</button>
             </div>
         </form>
         </span>
@@ -103,10 +79,8 @@
     <br>
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <!-- Script -->
     <script>
-
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyBVBR8svDcvV9KOloI-HHHSGVMjSXP72tw",
@@ -117,88 +91,36 @@
             messagingSenderId: "1021493626385"
         };
         firebase.initializeApp(config);
-
         var database = firebase.database();
-
         var destination = "";
         var firstTime = "";
         var frequency = 0;
         var name = "";
-
         $("#submit").on("click", function (event) {
             event.preventDefault();
-
             destination = $("#destination-input").val().trim();
             firstTime = $("#time-input").val().trim();
             frequency = $("#frequency-input").val().trim();
             name = $("#name-input").val().trim();
-
             database.ref().push({
                 destination: destination,
                 frequency: frequency,
                 name: name,
                 firstTime: firstTime,
-
             });
-            $("#destination-input").val("");
-            $("#frequency-input").val("");
-            $("#time-input").val("");
-            $("#name-input").val("");
-
-            return false;
-
         });
-
-        database.ref().on("child_added", function (childSnapshot, prevChildKey) {
-
-            console.log(childSnapshot.val());
-
-            var dest = childSnapshot.val().destination;
-            var freq = childSnapshot.val().frequency;
-            var train = childSnapshot.val().name;
-            var ft = childSnapshot.val().firstTime;
-
-
-
-            // var tFrequency = $("freqResult-input")
-
-            // First Time
-            var firstTimeConverted = moment(ft, "HH:mm").subtract(1, "days");
-            console.log(firstTimeConverted);
-            // // Current Time
-            var currentTime = moment();
-            console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
-            // // Difference between the times
-            var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-            console.log("DIFFERENCE IN TIME: " + diffTime + " minutes");
-            // // Time Apart (remainder)
-            var tRemainder = diffTime % freq;
-            console.log(tRemainder);
-            // // Minutes Until Train
-            var tMinTilTrain = freq - tRemainder;
-            console.log("MINUTES TILL TRAIN: " + tMinTilTrain);
-            // $("#minResult-input").text(tMinTilTrain);
-            // // Next Train
-            var nextTrain = moment().add(tMinTilTrain, "minutes");
-            console.log("ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
-            // $("#nextResult-input").text(nextTrain);
-
-            var nextTrainTime = moment(nextTrain).format("HH:mm");
-
-            console.log(train);
-            console.log(dest);
-            console.log(ft);
-            console.log(freq);
-
-            $("#nameResult-input").append("<tr><td>" + train + "</td></tr>");
-            $("#destResult-input").append("<tr><td>" + dest + "</td></tr>");
-            $("#freqResult-input").append("<tr><td>" + freq + "</td></tr>");
-            $("#nextResult-input").append("<tr><td>" + nextTrainTime + "</td></tr>");
-            $("#minResult-input").append("<tr><td>" + tMinTilTrain + "</td></tr>");
+        database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
+            var sv = snapshot.val();
+            console.log(sv.destination);
+            console.log(sv.frequency);
+            console.log(sv.name);
+            console.log(sv.firstTime);
+            $("#destResult-input").text(sv.destination);
+            $("#freqResult-input").text(sv.frequency);
+            $("#nameResult-input").text(sv.name);
+        }, function (errorObject) {
+            console.log("Errors handled: " + errorObject.code);
         });
-
-
-
     </script>
 </body>
 
